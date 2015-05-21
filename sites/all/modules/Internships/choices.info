@@ -1,0 +1,5 @@
+name = Results
+description = Displays the result of internship stuff.
+package = Epicodus Examples
+core = 7.x
+files[] = choices.module
