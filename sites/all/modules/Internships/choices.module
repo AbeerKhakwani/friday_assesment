@@ -34,7 +34,7 @@ function choices_form() {
 function choices_form_submit($form, &$form_state) {
 
     $student_name = $form_state['values']['student_name'];
-    $_SESSION['student_name'] = $student_name;
+    $_SESSION['student_name'] =$student_name;
     $_SESSION['all_students'] = array(
         'Erica' => array('first' => 'FlowerPot', 'second' => 'Vacasa'),
         'David' => array('first' => 'MetalToad', 'second' => 'Lumen'),
@@ -98,6 +98,10 @@ function select_companies(){
 
 }
 function get_result(){
-   return "hello";
+ $first_choice= $_SESSION['all_students'][$_SESSION['student_name']]['first'];
+ $second_choice= $_SESSION['all_students'][$_SESSION['student_name']]['second'];
+
+   $output = 'Hello ' . $_SESSION['student_name'] . '! <br/>Your Choices were: ' . $first_choice . ' & ' . $second_choice . ".";
+   return $output;
 
 }
