@@ -1,86 +1,169 @@
 <?php
 
-function choices_menu() {
-        $items['choices'] = array(
-        'title' => 'Choices!',
-        'page callback' => 'drupal_get_form',
-        'page arguments' => array('choices_form'),
-        'access callback' => TRUE,
-        'type' => MENU_NORMAL_ITEM,
-    );
+function choices_menu()
+{
+
     $items['results'] = array(
-    'title' => 'Your Intership!',
-    'page callback' => 'get_result',
-    'access callback' => TRUE,
-    'type' => MENU_CALLBACK,
-);
+        'title' => 'Your Intership!',
+        'page callback' => 'get_result',
+        'access callback' => TRUE,
+        'type' => MENU_NORMAL_ITEM
+    );
     return $items;
 }
-function choices_form() {
-    $form['student_name'] = array(
-        '#title' => 'Student Name',
-        '#type' => 'textfield',
-        '#description' => t("Please enter your first name.TitleCase it !"),
-        '#element_validate' => array('element_check_student'),
-        '#required' => TRUE,
+
+
+function get_result()
+{
+    $array_students = array(
+        'Erica' => array(
+            'first' => 'FlowerPot',
+            'second' => 'Vacasa',
+            'third' => 'Dart'
+        ),
+        'David' => array(
+            'first' => 'MetalToad',
+            'second' => 'Lumen',
+            'third' => 'Whitman'
+        ),
+        'Bojana' => array(
+            'first' => 'Drupal',
+            'second' => 'Lumen',
+            'third' => 'Graybox'
+        ),
+        'Nhu' => array(
+            'first' => 'Phase2',
+            'second' => 'Whitman',
+            'third' => 'empty'
+        ),
+        'James' => array(
+            'first' => 'Dart',
+            'second' => 'Lumen',
+            'third' => 'Flowerpot'
+        ),
+        'Jill' => array(
+            'first' => 'Emerge',
+            'second' => 'Phase2',
+            'third' => 'Lumen'
+        ),
+        'Liz' => array(
+            'first' => 'Vacasa',
+            'second' => 'Lumen',
+            'third' => 'Drupal'
+        ),
+        'Tom' => array(
+            'first' => 'Phase2',
+            'second' => 'Copious',
+            'third' => 'Graybox'
+        ),
+        'Kenna' => array(
+            'first' => 'Phase2',
+            'second' => 'Drupal',
+            'third' => 'Intel'
+        ),
+        'Cynthia' => array(
+            'first' => 'Intel',
+            'second' => 'Phase2',
+            'third' => 'Drupal'
+        ),
+        'Brian' => array(
+            'first' => 'Emerge',
+            'second' => 'Vacasa',
+            'third' => 'Lumen'
+        ),
+        'Patrick' => array(
+            'first' => 'Phase2',
+            'second' => 'FlowerPot',
+            'third' => 'empty'
+        ),
+        'Tanner' => array(
+            'first' => 'Copious',
+            'second' => 'Tanner',
+            'third' => 'empty'
+        ),
+        'Brett' => array(
+            'first' => 'Copious',
+            'second' => 'Graybox',
+            'third' => 'Whitman'
+        ),
+        'KyleGC' => array(
+            'first' => 'Phase2',
+            'second' => 'MetalToad',
+            'third' => 'Graybox'
+        ),
+        'KyleB' => array(
+            'first' => 'Copious',
+            'second' => 'Graybox',
+            'third' => 'Flowerpot'
+        ),
+        'Conor' => array(
+            'first' => 'Phase2',
+            'second' => 'Intel',
+            'third' => 'Whitman'
+        ),
+        'Connor' => array(
+            'first' => 'Phase2',
+            'second' => 'Copious',
+            'third' => 'MetalToad'
+        ),
+        'Geoff' => array(
+            'first' => 'Phase2',
+            'second' => 'Vacasa',
+            'third' => 'Dart'
+        ),
+        'Bryan' => array(
+            'first' => 'MetalToad',
+            'second' => 'Whitman',
+            'third' => 'Lumen'
+        ),
+        'Reid' => array(
+            'first' => 'Intel',
+            'second' => 'Emerge',
+            'third' => 'Drupal'
+        ),
+        'Tommy' => array(
+            'first' => 'Intel',
+            'second' => 'FlowerPot',
+            'third' => 'Dart'
+        ),
+        'Jon' => array(
+            'first' => 'Vacasa',
+            'second' => 'Drupal',
+            'third' => 'MetalToad'
+        ),
+        'Chitra' => array(
+            'first' => 'Phase2',
+            'second' => 'Whitman',
+            'third' => 'Dart'
+        ),
+        'Evan' => array(
+            'first' => 'Dart',
+            'second' => 'Intel',
+            'third' => 'Whitman'
+        ),
+        'Daniel' => array(
+            'first' => 'Intel',
+            'second' => 'Drupal',
+            'third' => 'empty'
+        ),
+        'Abeer' => array(
+            'first' => 'Vacasa',
+            'second' => 'Copious',
+            'third' => 'Graybox'
+        ),
+        'Kelly' => array(
+            'first' => 'Emerge',
+            'second' => 'Vacasa',
+            'third' => 'Lumen'
+        ),
+        'Virginie' => array(
+            'first' => 'FlowerPot',
+            'second' => 'MetalToad',
+            'third' => 'empty'
+        )
     );
-    $form['submit'] = array(
-        '#type' => 'submit',
-        '#value' => 'Find out your placement!',
-    );
-    return $form;
-}
-
-function choices_form_submit($form, &$form_state) {
-
-    $student_name = $form_state['values']['student_name'];
-    $_SESSION['student_name'] =$student_name;
-    $_SESSION['all_students'] = array(
-        'Erica' => array('first' => 'FlowerPot', 'second' => 'Vacasa'),
-        'David' => array('first' => 'MetalToad', 'second' => 'Lumen'),
-        'Bojana' => array('first' => 'Drupal', 'second' => 'Lumen'),
-        'Nhu' => array('first' => 'Phase2', 'second' => 'Whitman'),
-        'James' => array('first' => 'Dart', 'second' => 'Lumen'),
-        'Jill'=> array('first' => 'Emerge', 'second' => 'Phase2'),
-        'Liz'=> array('first' => 'Vacasa', 'second' => 'Lumen'),
-        'Tom'=> array('first' => 'Phase2', 'second' => 'Copious'),
-        'Kenna'=> array('first' => 'Phase2', 'second' => 'Drupal'),
-        'Cynthia'=> array('first' => 'Intel', 'second' => 'Phase2'),
-        'Brian'=> array('first' => 'Emerge', 'second' => 'Vacasa'),
-        'Patrick'=> array('first' => 'Phase2', 'second' => 'FlowerPot'),
-        'Tanner'=> array('first' => 'Copious', 'second' => 'Tanner'),
-        'Brett'=> array('first' => 'Copious', 'second' => 'Graybox'),
-        'KyleGC'=> array('first' => 'Phase2', 'second' => 'MetalToad'),
-        'KyleB'=> array('first' => 'Copious', 'second' => 'Graybox'),
-        'Conor'=> array('first' => 'Phase2', 'second' => 'Intel'),
-        'Connor'=> array('first' => 'Phase2', 'second' => 'Copious'),
-        'Geoff'=> array('first' => 'Phase2', 'second' => 'Vacasa'),
-        'Bryan'=> array('first' => 'MetalToad', 'second' => 'Whitman'),
-        'Reid'=> array('first' => 'Intel', 'second' => 'Emerge'),
-        'Tommy'=> array('first' => 'Intel', 'second' => 'FlowerPot'),
-        'Jon'=> array('first' => 'Vacasa', 'second' => 'Drupal'),
-        'Chitra'=> array('first' => 'Phase2', 'second' => 'Whitman'),
-        'Evan'=> array('first' => 'Dart', 'second' => 'Intel'),
-        'Daniel'=> array('first' => 'Intel', 'second' => 'Drupal'),
-        'Tom'=> array('first' => 'Phase2', 'second' => 'Copious'),
-        'Abeer'=> array('first' => 'Vacasa', 'second' => 'Copious'),
-        'Kelly'=> array('first' => 'Emerge', 'second' => 'Vacasa'),
-        'Virginie'=> array('first' => 'FlowerPot', 'second' => 'MetalToad'),
-    );
-
-    $form_state['redirect']='results';
-
-}
-
-function element_check_student($element){
-    if(!array_key_exists($element['#value'],$_SESSION['all_students']  )){
-        form_error($element, t('That person is not in the class!!!!! Be real!'));
-    }
-}
-
-function select_companies(){
-    $companies= array (
-        'Phase2' => 0,
+    $companies      = array(
+        'Phase2' => -4,
         'Emerge' => 0,
         'Copious' => 0,
         'MetalToad' => 0,
@@ -91,17 +174,47 @@ function select_companies(){
         'Dart' => 0,
         'Lumen' => 0,
         'Whitman' => 0,
-        'Graybox' => 0,
+        'Graybox' => 0
     );
+    $output         = '';
+
+    foreach ($array_students as $student => $value) {
+        foreach ($companies as $company_name => $intern_number) {
+            if ($intern_number < 2) {
+
+                if ($company_name == $value['first']) {
+                    $value['company'] = $company_name;
+                    $companies[$company_name] += 1;
+                    continue;
+
+                } elseif ($company_name == $value['second']) {
+                    $value['company'] = $company_name;
+                    $companies[$company_name] += 1;
+                    continue;
+
+                }
+                elseif ($company_name == $value['third']) {
+                    $value['company'] = $company_name;
+                    $companies[$company_name] += 1;
+                    continue;
+
+                } else {
+                    continue;
+                }
+            }
+            //
+            //
+            // else {
+            //     unset($companies[$company_name]);
+            // }
+
+        }
+
+        $output .= '<br/><strong>Name:</strong> ' . $student . '<br/> <strong>First Choice </strong>: ' . $value['first'] . ' <br/> <strong>Second Choice </strong>: ' . $value['second'] . '<br/>' . 'Company: ' . $value['company'];
+
+    }
 
 
-
-}
-function get_result(){
- $first_choice= $_SESSION['all_students'][$_SESSION['student_name']]['first'];
- $second_choice= $_SESSION['all_students'][$_SESSION['student_name']]['second'];
-
-   $output = 'Hello ' . $_SESSION['student_name'] . '! <br/>Your Choices were: ' . $first_choice . ' & ' . $second_choice . ".";
-   return $output;
+    return $output;
 
 }
